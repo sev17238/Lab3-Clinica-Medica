@@ -22,7 +22,7 @@ public class ClinicaFrame extends javax.swing.JFrame {
     Registro registro;
     ArrayCasillas[][] matriz1;
     Guardia[] array;
-    
+    int i;
     /**
      * Creates new form ClinicaFrame
      */
