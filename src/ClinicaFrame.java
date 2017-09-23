@@ -417,6 +417,7 @@ public class ClinicaFrame extends javax.swing.JFrame {
         for(int i = 0;i<casilla.getArrayCasilla().length;i++){
             enfmed = casilla.getArrayCasilla()[i];
             if(i == 0){
+                
                 tframe.jTextArea1.append(System.getProperty("line.separator"));
                 tframe.jTextArea1.append("Medico:");
                 tframe.jTextArea1.append(System.getProperty("line.separator"));
