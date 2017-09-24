@@ -191,23 +191,19 @@ public class ClinicaFrame extends javax.swing.JFrame {
             new String [] {
                 "Día / Mes", "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, true, false, false, false, false, false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jTable1.setRowSelectionAllowed(false);
         jScrollPane2.setViewportView(jTable1);
         if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(0).setResizable(false);
-            jTable1.getColumnModel().getColumn(1).setResizable(false);
-            jTable1.getColumnModel().getColumn(2).setResizable(false);
-            jTable1.getColumnModel().getColumn(3).setResizable(false);
-            jTable1.getColumnModel().getColumn(4).setResizable(false);
-            jTable1.getColumnModel().getColumn(5).setResizable(false);
-            jTable1.getColumnModel().getColumn(6).setResizable(false);
             jTable1.getColumnModel().getColumn(7).setResizable(false);
-            jTable1.getColumnModel().getColumn(8).setResizable(false);
-            jTable1.getColumnModel().getColumn(9).setResizable(false);
-            jTable1.getColumnModel().getColumn(10).setResizable(false);
-            jTable1.getColumnModel().getColumn(11).setResizable(false);
-            jTable1.getColumnModel().getColumn(12).setResizable(false);
         }
 
         jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 870, 240));
@@ -278,6 +274,11 @@ public class ClinicaFrame extends javax.swing.JFrame {
         jPanel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jButtonEnfermeraGuardia.setText("Enfermera con más Guardias");
+        jButtonEnfermeraGuardia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonEnfermeraGuardiaActionPerformed(evt);
+            }
+        });
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel3.setText("Opciones Generales");
@@ -397,6 +398,11 @@ public class ClinicaFrame extends javax.swing.JFrame {
 
         jButtonSalir.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jButtonSalir.setText("SALIR");
+        jButtonSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSalirActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButtonSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(753, 0, 137, 46));
 
         pack();
@@ -443,6 +449,75 @@ public class ClinicaFrame extends javax.swing.JFrame {
         }
         tframe.setVisible(true);
     }//GEN-LAST:event_jButtonVerGuardiaActionPerformed
+/**
+ * este metodo de boton lo que hace es calcular a la enfermera SUPREMA
+ * @param evt 
+ */
+    private void jButtonEnfermeraGuardiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEnfermeraGuardiaActionPerformed
+        // TODO add your handling code here:
+        ArrayCasillas casilla = new ArrayCasillas();
+        Guardia enfmed = new Guardia();
+        Guardia t=null;
+        Enfermera e=null;
+        int e1=0,e2=0,e3=0,e4=0,e5=0;
+        for (int n = 0; n < matriz1.length; n++) {
+            for (int j = 0; j < matriz1[n].length; j++) {
+               casilla=matriz1[i][j];
+                for(int i = 0;i<casilla.getArrayCasilla().length;i++){
+                    t=casilla.getArrayCasilla()[1];
+                    if (t instanceof Enfermera) {
+                        if ((t.getNit().equals("563269-K"))&&(((Enfermera) t).getIntensivista()==true)) {
+                            e1++;
+                        }
+                        else if ((t.getNit().equals("7654376-6"))&&(((Enfermera) t).getIntensivista()==true)) {
+                            e2++;
+                        }
+                        else if ((t.getNit().equals("9876456-8"))&&(((Enfermera) t).getIntensivista()==true)) {
+                            e3++;
+                        }
+                        else if ((t.getNit().equals("4567865-8"))&&(((Enfermera) t).getIntensivista()==true)) {
+                            e4++;
+                        }
+                        else if ((t.getNit().equals("6789654-8"))&&(((Enfermera) t).getIntensivista()==true)) {
+                            e5++;
+                        }
+                    }
+                    
+                }
+            }
+        }
+        double mayor=0;
+        double extras=0;
+        Guardia ee=null;
+        if (e2>e4) {
+            mayor=(e2-48)*1.0;
+            extras=mayor*500.00;
+            ee=registro.buscarEnfermeraNIT("7654376-6");
+            System.out.println(""+e2);
+            JOptionPane.showMessageDialog(null, "El nombre de la enfermera suprema es: "+ee.getNombre()+" hizo un total de "+mayor+" horas de guardias extra y su pago extra por guardias es de: "+extras);
+        } else if (e2<e4) {
+            mayor=(e4-48)*1.0;
+            extras=mayor*500.00;
+            ee=registro.buscarEnfermeraNIT("4567865-8");
+            System.out.println(""+e4);
+            JOptionPane.showMessageDialog(null, "El nombre de la enfermera suprema es: "+ee.getNombre()+" hizo un total de "+mayor+" horas de guardias extra y su pago extra por guardias es de: "+extras);
+        }else if (e2==e4) {
+            mayor=(e2-48)*1.0;
+            extras=mayor*500.00;
+            ee=registro.buscarEnfermeraNIT("4567865-8");
+            System.out.println(""+e2);
+            JOptionPane.showMessageDialog(null, "Por alguna razon 2 enfermeras quedaron empatadas e hicieron un total de "+mayor+" horas extra, aun así ambas reciben un pago extra por guardias  de: "+extras);
+            
+        }
+        
+        
+
+    }//GEN-LAST:event_jButtonEnfermeraGuardiaActionPerformed
+
+    private void jButtonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalirActionPerformed
+        // TODO add your handling code here:
+        System.exit(0);
+    }//GEN-LAST:event_jButtonSalirActionPerformed
 
     /**
      * @param args the command line arguments

@@ -117,6 +117,21 @@ public class Registro{
             return enf;                
 	}
         /**
+         * ESte metodo retorna una enfermera por nit
+         * @param dpi este parametro es el nit String
+         * @return objeto tipo enfermera
+         */
+        public Guardia buscarEnfermeraNIT(String nit){
+                Guardia enf = new Guardia();
+		for (int i = 0;i<medicosenfermeras.size();i++) {
+                    enf = medicosenfermeras.get(i);
+                    if((nit == enf.getNit())&&(enf instanceof Enfermera)){
+			return enf; 
+                    }
+		}
+            return enf;                
+	}
+        /**
          * Metodo que busca un medico en la lista de enfermeras y medicos, para retornar un boolean si el objeto
          * buscado esta o no en la lista.
          * @param dpi el dpi del medico que se quiere buscar
