@@ -58,10 +58,10 @@ public class ClinicaFrame extends javax.swing.JFrame {
         b=registro.ListarDPIMedicos();
         for (int i = 0; i < a.length; i++) {
             jComboBox3.addItem(a[i]);
-            jComboBox1.addItem(a[i]);
+            jComboBoxNITEnfermera.addItem(a[i]);
         }
         for (int i = 0; i < b.length; i++) {
-            jComboBox2.addItem(b[i]);
+            jComboBoxNITMedico.addItem(b[i]);
             
         }
     }
@@ -130,8 +130,8 @@ public class ClinicaFrame extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jComboBox2 = new javax.swing.JComboBox<>();
+        jComboBoxNITEnfermera = new javax.swing.JComboBox<>();
+        jComboBoxNITMedico = new javax.swing.JComboBox<>();
         jButtonBuscarParejas = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jButtonEnfermeraGuardia = new javax.swing.JButton();
@@ -225,12 +225,17 @@ public class ClinicaFrame extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel5.setText("NIT Medico");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] {""}));
+        jComboBoxNITEnfermera.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] {""}));
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] {"" }));
+        jComboBoxNITMedico.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] {"" }));
 
         jButtonBuscarParejas.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jButtonBuscarParejas.setText("Buscar");
+        jButtonBuscarParejas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonBuscarParejasActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -247,11 +252,11 @@ public class ClinicaFrame extends javax.swing.JFrame {
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(jComboBoxNITEnfermera, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel5)
-                                    .addComponent(jComboBox2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
+                                    .addComponent(jComboBoxNITMedico, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
                 .addGap(44, 44, 44))
         );
         jPanel3Layout.setVerticalGroup(
@@ -264,8 +269,8 @@ public class ClinicaFrame extends javax.swing.JFrame {
                     .addComponent(jLabel5))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jComboBoxNITEnfermera, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBoxNITMedico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonBuscarParejas)
                 .addContainerGap())
@@ -475,7 +480,7 @@ public class ClinicaFrame extends javax.swing.JFrame {
         int e1=0,e2=0,e3=0,e4=0,e5=0;
         for (int n = 0; n < matriz1.length; n++) {
             for (int j = 0; j < matriz1[n].length; j++) {
-               casilla=matriz1[i][j];
+               casilla=matriz1[n][j];
                 for(int i = 0;i<casilla.getArrayCasilla().length;i++){
                     t=casilla.getArrayCasilla()[1];
                     if (t instanceof Enfermera) {
@@ -542,7 +547,7 @@ public class ClinicaFrame extends javax.swing.JFrame {
         int m1=0,m2=0,m3=0,m4=0,m5=0;
         for (int n = 0; n < matriz1.length; n++) {
             for (int j = 0; j < matriz1[n].length; j++) {
-               casilla=matriz1[i][j];
+               casilla=matriz1[n][j];
                 for(int i = 0;i<casilla.getArrayCasilla().length;i++){
                     t=casilla.getArrayCasilla()[i];
                     if (t instanceof Enfermera) {
@@ -593,6 +598,49 @@ public class ClinicaFrame extends javax.swing.JFrame {
       
     }//GEN-LAST:event_jButtonGuardiasTotalesExtrasActionPerformed
 
+    private void jButtonBuscarParejasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarParejasActionPerformed
+        // TODO add your handling code here:
+        String a="",b="",aa="",bb="",nombree="",nombrem="";
+        try {
+            a=(String) jComboBoxNITEnfermera.getSelectedItem();// se selecciona el valor del item de el Combobox de enfermera
+            b=(String) jComboBoxNITMedico.getSelectedItem();
+            if ((a=="")||(b=="")) {
+                JOptionPane.showMessageDialog(null, "Para poder buscar debe seleccionar 2 NIT, no solamente uno. Falta un NIT.");
+            }
+            else{
+                ArrayCasillas casilla = new ArrayCasillas();
+                Guardia enfmed = new Guardia();
+                Guardia t=null;
+                int e1=0;
+                for (int n = 0; n < matriz1.length; n++) {
+                    for (int j = 0; j < matriz1[n].length; j++) {
+                       casilla=matriz1[n][j];
+                        for(int i = 0;i<casilla.getArrayCasilla().length;i++){
+                            t=casilla.getArrayCasilla()[i];
+                            if (t instanceof Enfermera) {
+                               aa=t.getNit();
+                               
+                            }else if (t instanceof Medico) {
+                               bb=t.getNit();
+                               
+                            }
+                        }
+                        if ((a.equals(aa))&&(b.equals(bb))) {
+                            e1++;
+                        }
+                    }
+                }
+                Guardia s=null;
+                Guardia d=null;
+                s=registro.buscarEnfermeraNIT(a);
+                d=registro.buscarMedicoNIT(b);
+                JOptionPane.showMessageDialog(null, "La cantidad de veces que la enfermera "+s.getNombre()+" con numero de NIT:"+a+" y el médico "+d.getNombre()+" con numero de NIT:"+b+" estuvieron juntos de guardia es de: "+e1);
+            } 
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Seleccione un NIT de Enfermera y un Nit de Medico Valido");
+        }
+    }//GEN-LAST:event_jButtonBuscarParejasActionPerformed
+    
     /**
      * @param args the command line arguments
      */
@@ -636,9 +684,9 @@ public class ClinicaFrame extends javax.swing.JFrame {
     private javax.swing.JButton jButtonSalir;
     private javax.swing.JButton jButtonSustituirEnfemera;
     private javax.swing.JButton jButtonVerGuardia;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JComboBox<String> jComboBox3;
+    private javax.swing.JComboBox<String> jComboBoxNITEnfermera;
+    private javax.swing.JComboBox<String> jComboBoxNITMedico;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

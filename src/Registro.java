@@ -118,7 +118,7 @@ public class Registro{
 	}
         /**
          * ESte metodo retorna una enfermera por nit
-         * @param dpi este parametro es el nit String
+         * @param nit este parametro es el nit String
          * @return objeto tipo enfermera
          */
         public Guardia buscarEnfermeraNIT(String nit){
@@ -126,6 +126,21 @@ public class Registro{
 		for (int i = 0;i<medicosenfermeras.size();i++) {
                     enf = medicosenfermeras.get(i);
                     if((nit == enf.getNit())&&(enf instanceof Enfermera)){
+			return enf; 
+                    }
+		}
+            return enf;                
+	}
+        /**
+         * ESte metodo retorna un medico por nit
+         * @param nit este parametro es el nit String
+         * @return objeto tipo Medico o tipo Guardia
+         */
+        public Guardia buscarMedicoNIT(String nit){
+                Guardia enf = new Guardia();
+		for (int i = 0;i<medicosenfermeras.size();i++) {
+                    enf = medicosenfermeras.get(i);
+                    if((nit == enf.getNit())&&(enf instanceof Medico)){
 			return enf; 
                     }
 		}
@@ -177,17 +192,16 @@ public class Registro{
             Guardia s;
             for (int i = 0; i < medicosenfermeras.size(); i++) {
                 s= medicosenfermeras.get(i);
-                if (s instanceof Enfermera) {
+                if ((s instanceof Enfermera)&&((Enfermera)s).getIntensivista()==true) {
                     cantidad++;
                 }
             }
-            
             String[] DPIEnfermeras= new String[cantidad];
             Guardia t;
             int m=0;
             for (int i = 0; i < medicosenfermeras.size(); i++) {
                 t=medicosenfermeras.get(i);
-                if (t instanceof Enfermera) {
+                if ((t instanceof Enfermera)&&((Enfermera)t).getIntensivista()==true) {
                     DPIEnfermeras[m]=t.getNit();
                     m++;
                 }
@@ -205,7 +219,7 @@ public class Registro{
             Guardia s;
             for (int i = 0; i < medicosenfermeras.size(); i++) {
                 s= medicosenfermeras.get(i);
-                if (s instanceof Medico) {
+                if ((s instanceof Medico)&&((Medico)s).getEspecialista()==true) {
                     cantidad++;
                 }
             }
@@ -215,7 +229,7 @@ public class Registro{
             int m=0;
             for (int i = 0; i < medicosenfermeras.size(); i++) {
                 t=medicosenfermeras.get(i);
-                if (t instanceof Medico) {
+                if ((t instanceof Medico)&&((Medico)t).getEspecialista()==true) {
                     DPIMedicos[m]=t.getNit();
                     m++;
                 }
