@@ -137,7 +137,7 @@ public class ClinicaFrame extends javax.swing.JFrame {
         jButtonEnfermeraGuardia = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jButtonVerGuardia = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        jButtonGuardiasTotalesExtras = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
@@ -290,7 +290,12 @@ public class ClinicaFrame extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("Calcular pago Guardias Extras");
+        jButtonGuardiasTotalesExtras.setText("Calcular pago Guardias Extras");
+        jButtonGuardiasTotalesExtras.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonGuardiasTotalesExtrasActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -299,7 +304,7 @@ public class ClinicaFrame extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButtonGuardiasTotalesExtras, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 218, Short.MAX_VALUE)
                     .addComponent(jButtonEnfermeraGuardia, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -316,7 +321,7 @@ public class ClinicaFrame extends javax.swing.JFrame {
                     .addComponent(jButtonVerGuardia, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButtonEnfermeraGuardia, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButtonGuardiasTotalesExtras, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(46, 46, 46))
         );
 
@@ -502,19 +507,19 @@ public class ClinicaFrame extends javax.swing.JFrame {
             extras=mayor*500.00;
             ee=registro.buscarEnfermeraNIT("7654376-6");
             System.out.println(""+e2);
-            JOptionPane.showMessageDialog(null, "El nombre de la enfermera suprema es: "+ee.getNombre()+" hizo un total de "+mayor+" horas de guardias extra y su pago extra por guardias es de: "+extras);
+            JOptionPane.showMessageDialog(null, "El nombre de la enfermera suprema es: "+ee.getNombre()+" hizo un total de "+mayor+" horas de guardias extra y su pago extra por guardias es de: Q"+extras);
         } else if (e2<e4) {
             mayor=(e4-48)*1.0;
             extras=mayor*500.00;
             ee=registro.buscarEnfermeraNIT("4567865-8");
             System.out.println(""+e4);
-            JOptionPane.showMessageDialog(null, "El nombre de la enfermera suprema es: "+ee.getNombre()+" hizo un total de "+mayor+" horas de guardias extra y su pago extra por guardias es de: "+extras);
+            JOptionPane.showMessageDialog(null, "El nombre de la enfermera suprema es: "+ee.getNombre()+" hizo un total de "+mayor+" horas de guardias extra y su pago extra por guardias es de: Q"+extras);
         }else if (e2==e4) {
             mayor=(e2-48)*1.0;
             extras=mayor*500.00;
             ee=registro.buscarEnfermeraNIT("4567865-8");
             System.out.println(""+e2);
-            JOptionPane.showMessageDialog(null, "Por alguna razon 2 enfermeras quedaron empatadas e hicieron un total de "+mayor+" horas extra, aun así ambas reciben un pago extra por guardias  de: "+extras);
+            JOptionPane.showMessageDialog(null, "Por alguna razon 2 enfermeras quedaron empatadas e hicieron un total de "+mayor+" horas extra, aun así ambas reciben un pago extra por guardias  de: Q"+extras);
             
         }
         
@@ -526,6 +531,67 @@ public class ClinicaFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         System.exit(0);
     }//GEN-LAST:event_jButtonSalirActionPerformed
+
+    private void jButtonGuardiasTotalesExtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardiasTotalesExtrasActionPerformed
+        // TODO add your handling code here:
+         // TODO add your handling code here:
+        ArrayCasillas casilla = new ArrayCasillas();
+        Guardia enfmed = new Guardia();
+        Guardia t=null;
+        int e1=0,e2=0,e3=0,e4=0,e5=0;
+        int m1=0,m2=0,m3=0,m4=0,m5=0;
+        for (int n = 0; n < matriz1.length; n++) {
+            for (int j = 0; j < matriz1[n].length; j++) {
+               casilla=matriz1[i][j];
+                for(int i = 0;i<casilla.getArrayCasilla().length;i++){
+                    t=casilla.getArrayCasilla()[i];
+                    if (t instanceof Enfermera) {
+                        if ((t.getNit().equals("563269-K"))) {
+                            e1++;
+                        }
+                        else if ((t.getNit().equals("7654376-6"))) {
+                            e2++;
+                        }
+                        else if ((t.getNit().equals("9876456-8"))) {
+                            e3++;
+                        }
+                        else if ((t.getNit().equals("4567865-8"))) {
+                            e4++;
+                        }
+                        else if ((t.getNit().equals("6789654-8"))) {
+                            e5++;
+                        }
+                    } else if (t instanceof Medico) {
+                        if ((t.getNit().equals("6799652-3"))) {
+                            m1++;
+                        }
+                        else if ((t.getNit().equals("8964547-3"))) {
+                            m2++;
+                        }
+                        else if ((t.getNit().equals("8786456-6"))) {
+                            m3++;
+                        }
+                        else if ((t.getNit().equals("5684873-1"))) {
+                            m4++;
+                        }
+                        else if ((t.getNit().equals("8765485-7"))) {
+                            m5++;
+                        }
+                    }
+                    
+                }
+            }
+        }
+      double totale=1.0*(e1+e2+e3+e4+e5);
+      double totalm=1.0*(m1+m2+m3+m4+m5);
+       double extrase=(totale-240.0);
+      double extrasm=totalm-120.0;
+      double gtotale=extrase*500;
+      double gtotalm=extrasm*900;
+      double totals=gtotale+gtotalm;
+      JOptionPane.showMessageDialog(null, "El total de horas extras de Enfermeras es de "+extrase+", el total de horas extras de Médicos es de: "+extrasm+" y el pago a darse por horas extras es de: Q"+totals);
+      
+    }//GEN-LAST:event_jButtonGuardiasTotalesExtrasActionPerformed
 
     /**
      * @param args the command line arguments
@@ -564,9 +630,9 @@ public class ClinicaFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButtonBuscarParejas;
     private javax.swing.JButton jButtonEnfermeraGuardia;
+    private javax.swing.JButton jButtonGuardiasTotalesExtras;
     private javax.swing.JButton jButtonSalir;
     private javax.swing.JButton jButtonSustituirEnfemera;
     private javax.swing.JButton jButtonVerGuardia;
