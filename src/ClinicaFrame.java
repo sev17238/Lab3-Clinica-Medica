@@ -422,7 +422,7 @@ public class ClinicaFrame extends javax.swing.JFrame {
         //tframe.jTextArea1.append("Guardia de dia:"+dias+", Mes: "+meses);
         for(int i = 0;i<casilla.getArrayCasilla().length;i++){
             enfmed = casilla.getArrayCasilla()[i];
-            if(i == 0){
+            if((i == 0)&&(enfmed instanceof Medico)){
                 tframe.jTextArea1.append(System.getProperty("line.separator"));
                 tframe.jTextArea1.append("Medico:");
                 tframe.jTextArea1.append(System.getProperty("line.separator"));
@@ -432,8 +432,12 @@ public class ClinicaFrame extends javax.swing.JFrame {
                 tframe.jTextArea1.append(System.getProperty("line.separator")); 
                 tframe.jTextArea1.append("DPI: "+enfmed.getDpi());
                 tframe.jTextArea1.append(System.getProperty("line.separator")); 
-                tframe.jTextArea1.append("Salario: "+enfmed.getSalario());                
-            }else if(i == 1){
+                tframe.jTextArea1.append("Salario: "+enfmed.getSalario());
+                tframe.jTextArea1.append(System.getProperty("line.separator")); 
+                tframe.jTextArea1.append("Colegiado: "+((Medico) enfmed).getColegiado());
+                tframe.jTextArea1.append(System.getProperty("line.separator")); 
+                tframe.jTextArea1.append("Especialidad: "+((Medico) enfmed).getEspecialista());   
+            }else if((i == 1)&&(enfmed instanceof Enfermera)){
                 tframe.jTextArea1.append(System.getProperty("line.separator"));
                 tframe.jTextArea1.append(System.getProperty("line.separator"));
                 tframe.jTextArea1.append("Enfermera:"); 
@@ -445,6 +449,10 @@ public class ClinicaFrame extends javax.swing.JFrame {
                 tframe.jTextArea1.append("DPI: "+enfmed.getDpi());
                 tframe.jTextArea1.append(System.getProperty("line.separator")); 
                 tframe.jTextArea1.append("Salario: "+enfmed.getSalario()); 
+                tframe.jTextArea1.append(System.getProperty("line.separator")); 
+                tframe.jTextArea1.append("Años de Experiencia: "+((Enfermera)enfmed).getAnos());
+                tframe.jTextArea1.append(System.getProperty("line.separator")); 
+                tframe.jTextArea1.append("Intensivista: "+((Enfermera)enfmed).getIntensivista());
             }
         }
         tframe.setVisible(true);
