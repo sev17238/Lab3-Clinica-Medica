@@ -117,7 +117,37 @@ public class Registro{
             return enf;                
 	}
         /**
-         * Metodo que busca un medico en la lista de enfermeras y medicos, para retornar un boolean si el objeto
+         * ESte metodo retorna una enfermera por nit
+         * @param nit este parametro es el nit String
+         * @return objeto tipo enfermera
+         */
+        public Guardia buscarEnfermeraNIT(String nit){
+                Guardia enf = new Guardia();
+		for (int i = 0;i<medicosenfermeras.size();i++) {
+                    enf = medicosenfermeras.get(i);
+                    if((nit == enf.getNit())&&(enf instanceof Enfermera)){
+			return enf; 
+                    }
+		}
+            return enf;                
+	}
+        /**
+         * ESte metodo retorna un medico por nit
+         * @param nit este parametro es el nit String
+         * @return objeto tipo Medico o tipo Guardia
+         */
+        public Guardia buscarMedicoNIT(String nit){
+                Guardia enf = new Guardia();
+		for (int i = 0;i<medicosenfermeras.size();i++) {
+                    enf = medicosenfermeras.get(i);
+                    if((nit == enf.getNit())&&(enf instanceof Medico)){
+			return enf; 
+                    }
+		}
+            return enf;                
+	}
+        /**
+         * Metodo que busca una enfermera en la lista de enfermeras y medicos, para retornar un boolean si el objeto
          * buscado esta o no en la lista.
          * @param dpi el dpi del medico que se quiere buscar
          * @return 
@@ -154,7 +184,7 @@ public class Registro{
             return enf;                
 	}
         /**
-         * ESte metodo crea una lista de DPI de enfemeras
+         * ESte metodo crea una lista de DPI de enfemeras intensivistas
          * @return DPIEnfemeras es un vector de String que tiene los DPI de las enfemeras
          */
         public String[] ListarDPIEnfermeras(){
@@ -162,17 +192,16 @@ public class Registro{
             Guardia s;
             for (int i = 0; i < medicosenfermeras.size(); i++) {
                 s= medicosenfermeras.get(i);
-                if (s instanceof Enfermera) {
+                if ((s instanceof Enfermera)&&((Enfermera)s).getIntensivista()==true) {
                     cantidad++;
                 }
             }
-            
             String[] DPIEnfermeras= new String[cantidad];
             Guardia t;
             int m=0;
             for (int i = 0; i < medicosenfermeras.size(); i++) {
                 t=medicosenfermeras.get(i);
-                if (t instanceof Enfermera) {
+                if ((t instanceof Enfermera)&&((Enfermera)t).getIntensivista()==true) {
                     DPIEnfermeras[m]=t.getNit();
                     m++;
                 }
@@ -180,17 +209,43 @@ public class Registro{
             
             return DPIEnfermeras;
         }
+        /**
+         * ESte metodo crea una lista des los DPI de todas las enfermeras de la clinica, sean intensivistas
+         * o no.
+         * @return DPIEnfemeras es un vector de String que tiene los DPI de las enfemeras
+         */
+        public String[] ListarDPIEnfermerasTodas(){
+            int cantidad=0;
+            Guardia enf;
+            for (int i = 0; i < medicosenfermeras.size(); i++) {
+                enf= medicosenfermeras.get(i);
+                if (enf instanceof Enfermera) {
+                    cantidad++;
+                }
+            }
+            String[] DPIEnfermeras= new String[cantidad];
+            Guardia enfmed;
+            int m=0;
+            for (int i = 0; i < medicosenfermeras.size(); i++) {
+                enfmed=medicosenfermeras.get(i);
+                if ((enfmed instanceof Enfermera)) {
+                    DPIEnfermeras[m]=enfmed.getNit();
+                    m++;
+                }
+            }            
+            return DPIEnfermeras;
+        }
         
         /**
-         * ESte metodo crea una lista de DPI de enfemeras
-         * @return DPIEnfemeras es un vector de String que tiene los DPI de las enfemeras
+         * ESte metodo crea una lista de DPI de medicos especialistas
+         * @return DPIEnfemeras es un vector de String que tiene los DPI de los medicos
          */
         public String[] ListarDPIMedicos(){
             int cantidad=0;
             Guardia s;
             for (int i = 0; i < medicosenfermeras.size(); i++) {
                 s= medicosenfermeras.get(i);
-                if (s instanceof Medico) {
+                if ((s instanceof Medico)&&((Medico)s).getEspecialista()==true) {
                     cantidad++;
                 }
             }
@@ -200,7 +255,7 @@ public class Registro{
             int m=0;
             for (int i = 0; i < medicosenfermeras.size(); i++) {
                 t=medicosenfermeras.get(i);
-                if (t instanceof Medico) {
+                if ((t instanceof Medico)&&((Medico)t).getEspecialista()==true) {
                     DPIMedicos[m]=t.getNit();
                     m++;
                 }
@@ -208,8 +263,21 @@ public class Registro{
             
             return DPIMedicos;
         }
-        
-       
+        /**
+         * Metodo que verifica si la enfermera con nit n es intensivista o no.
+         * @param nit
+         * @return 
+         */
+        public boolean VerificarIntensivista(String nit){
+            Guardia enf = new Guardia();
+		for (int i = 0;i<medicosenfermeras.size();i++) {
+                    enf = medicosenfermeras.get(i);
+                    if((nit.equals(enf.getNit()))&&(enf instanceof Enfermera)&&((Enfermera)enf).getIntensivista()==true){
+			return true; 
+                    }
+		}
+            return false;
+        }
   
     
 

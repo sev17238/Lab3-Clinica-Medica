@@ -50,19 +50,24 @@ public class ClinicaFrame extends javax.swing.JFrame {
         registro.agregarMedico("Maria Castillo", "8765485-7", 569101, 13000, 67965, false);
         registro.agregarEnfermera("Mariela Rodriguez", "6789654-8", 320101, 8000, 2, false);
     }
-    
+    /**
+     * Metodo que llena los combo boxes del frame de la clinica.
+     */
     public void llenarComboBoxes(){
         String [] a;
         String [] b;
+        String [] c;
         a=registro.ListarDPIEnfermeras();
         b=registro.ListarDPIMedicos();
+        c=registro.ListarDPIEnfermerasTodas();
         for (int i = 0; i < a.length; i++) {
-            jComboBox3.addItem(a[i]);
-            jComboBox1.addItem(a[i]);
+            jComboBoxNITEnfermera.addItem(a[i]);
         }
         for (int i = 0; i < b.length; i++) {
-            jComboBox2.addItem(b[i]);
-            
+            jComboBoxNITMedico.addItem(b[i]);            
+        }
+        for (int i = 0; i < c.length; i++) {
+            cboxsustituir.addItem(c[i]);            
         }
     }
     
@@ -130,19 +135,21 @@ public class ClinicaFrame extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jComboBox2 = new javax.swing.JComboBox<>();
+        jComboBoxNITEnfermera = new javax.swing.JComboBox<>();
+        jComboBoxNITMedico = new javax.swing.JComboBox<>();
         jButtonBuscarParejas = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jButtonEnfermeraGuardia = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jButtonVerGuardia = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        jButtonGuardiasTotalesExtras = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        jComboBox3 = new javax.swing.JComboBox<>();
+        cboxsustituir = new javax.swing.JComboBox<>();
         jButtonSustituirEnfemera = new javax.swing.JButton();
+        jButtonINFO = new javax.swing.JButton();
+        labelseleccion = new javax.swing.JLabel();
         jButtonSalir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -191,23 +198,19 @@ public class ClinicaFrame extends javax.swing.JFrame {
             new String [] {
                 "Día / Mes", "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, true, false, false, false, false, false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jTable1.setRowSelectionAllowed(false);
         jScrollPane2.setViewportView(jTable1);
         if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(0).setResizable(false);
-            jTable1.getColumnModel().getColumn(1).setResizable(false);
-            jTable1.getColumnModel().getColumn(2).setResizable(false);
-            jTable1.getColumnModel().getColumn(3).setResizable(false);
-            jTable1.getColumnModel().getColumn(4).setResizable(false);
-            jTable1.getColumnModel().getColumn(5).setResizable(false);
-            jTable1.getColumnModel().getColumn(6).setResizable(false);
             jTable1.getColumnModel().getColumn(7).setResizable(false);
-            jTable1.getColumnModel().getColumn(8).setResizable(false);
-            jTable1.getColumnModel().getColumn(9).setResizable(false);
-            jTable1.getColumnModel().getColumn(10).setResizable(false);
-            jTable1.getColumnModel().getColumn(11).setResizable(false);
-            jTable1.getColumnModel().getColumn(12).setResizable(false);
         }
 
         jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 870, 240));
@@ -229,12 +232,17 @@ public class ClinicaFrame extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel5.setText("NIT Medico");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] {""}));
+        jComboBoxNITEnfermera.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] {""}));
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] {"" }));
+        jComboBoxNITMedico.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] {"" }));
 
         jButtonBuscarParejas.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jButtonBuscarParejas.setText("Buscar");
+        jButtonBuscarParejas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonBuscarParejasActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -251,11 +259,11 @@ public class ClinicaFrame extends javax.swing.JFrame {
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(jComboBoxNITEnfermera, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel5)
-                                    .addComponent(jComboBox2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
+                                    .addComponent(jComboBoxNITMedico, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
                 .addGap(44, 44, 44))
         );
         jPanel3Layout.setVerticalGroup(
@@ -268,8 +276,8 @@ public class ClinicaFrame extends javax.swing.JFrame {
                     .addComponent(jLabel5))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jComboBoxNITEnfermera, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBoxNITMedico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonBuscarParejas)
                 .addContainerGap())
@@ -278,6 +286,11 @@ public class ClinicaFrame extends javax.swing.JFrame {
         jPanel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jButtonEnfermeraGuardia.setText("Enfermera con más Guardias");
+        jButtonEnfermeraGuardia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonEnfermeraGuardiaActionPerformed(evt);
+            }
+        });
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel3.setText("Opciones Generales");
@@ -289,7 +302,12 @@ public class ClinicaFrame extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("Calcular pago Guardias Extras");
+        jButtonGuardiasTotalesExtras.setText("Calcular pago Guardias Extras");
+        jButtonGuardiasTotalesExtras.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonGuardiasTotalesExtrasActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -298,7 +316,7 @@ public class ClinicaFrame extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButtonGuardiasTotalesExtras, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 218, Short.MAX_VALUE)
                     .addComponent(jButtonEnfermeraGuardia, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -315,7 +333,7 @@ public class ClinicaFrame extends javax.swing.JFrame {
                     .addComponent(jButtonVerGuardia, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButtonEnfermeraGuardia, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButtonGuardiasTotalesExtras, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(46, 46, 46))
         );
 
@@ -327,10 +345,30 @@ public class ClinicaFrame extends javax.swing.JFrame {
         jLabel8.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel8.setText("NIT Enfermera");
 
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] {""}));
+        cboxsustituir.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] {""}));
+        cboxsustituir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboxsustituirActionPerformed(evt);
+            }
+        });
 
         jButtonSustituirEnfemera.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jButtonSustituirEnfemera.setText("Sustituir");
+        jButtonSustituirEnfemera.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSustituirEnfemeraActionPerformed(evt);
+            }
+        });
+
+        jButtonINFO.setBackground(new java.awt.Color(153, 153, 255));
+        jButtonINFO.setText("INFO.");
+        jButtonINFO.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonINFOActionPerformed(evt);
+            }
+        });
+
+        labelseleccion.setText("No seleccion");
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -340,12 +378,16 @@ public class ClinicaFrame extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(32, 32, 32))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+            .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jComboBox3, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButtonSustituirEnfemera, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel5Layout.createSequentialGroup()
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addComponent(jButtonINFO)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(labelseleccion))
+                    .addComponent(cboxsustituir, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButtonSustituirEnfemera, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGap(45, 45, 45)
                         .addComponent(jLabel8)
                         .addGap(0, 0, Short.MAX_VALUE)))
@@ -355,13 +397,17 @@ public class ClinicaFrame extends javax.swing.JFrame {
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(1, 1, 1)
                 .addComponent(jLabel8)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cboxsustituir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButtonSustituirEnfemera)
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonINFO)
+                    .addComponent(labelseleccion))
+                .addGap(5, 5, 5))
         );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -382,12 +428,11 @@ public class ClinicaFrame extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 146, Short.MAX_VALUE)
+                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(0, 12, Short.MAX_VALUE)))
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -397,6 +442,11 @@ public class ClinicaFrame extends javax.swing.JFrame {
 
         jButtonSalir.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jButtonSalir.setText("SALIR");
+        jButtonSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSalirActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButtonSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(753, 0, 137, 46));
 
         pack();
@@ -406,7 +456,7 @@ public class ClinicaFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         int columnas = getTablaColumns();int meses = columnas+1;
         int filas = getTablaFilas(); int dias = filas+1;
-        System.out.println("col: "+columnas+" fil: "+filas);
+        //System.out.println("col: "+columnas+" fil: "+filas);
         ArrayCasillas casilla = new ArrayCasillas();
         casilla = matriz1[columnas][filas];
         Guardia enfmed = new Guardia();
@@ -415,9 +465,9 @@ public class ClinicaFrame extends javax.swing.JFrame {
         tframe.setTitle("Guardia de dia:"+dias+", Mes: "+meses);
         //tframe.jTextArea1.append("Guardia de dia:"+dias+", Mes: "+meses);
         for(int i = 0;i<casilla.getArrayCasilla().length;i++){
-            enfmed = casilla.getArrayCasilla()[i];
-            if(i == 0){
-                
+            enfmed = casilla.getArrayCasilla()[i];                         
+
+            if((i == 0)&&(enfmed instanceof Medico)){
                 tframe.jTextArea1.append(System.getProperty("line.separator"));
                 tframe.jTextArea1.append("Medico:");
                 tframe.jTextArea1.append(System.getProperty("line.separator"));
@@ -427,8 +477,12 @@ public class ClinicaFrame extends javax.swing.JFrame {
                 tframe.jTextArea1.append(System.getProperty("line.separator")); 
                 tframe.jTextArea1.append("DPI: "+enfmed.getDpi());
                 tframe.jTextArea1.append(System.getProperty("line.separator")); 
-                tframe.jTextArea1.append("Salario: "+enfmed.getSalario());                
-            }else if(i == 1){
+                tframe.jTextArea1.append("Salario: "+enfmed.getSalario());
+                tframe.jTextArea1.append(System.getProperty("line.separator")); 
+                tframe.jTextArea1.append("Colegiado: "+((Medico) enfmed).getColegiado());
+                tframe.jTextArea1.append(System.getProperty("line.separator")); 
+                tframe.jTextArea1.append("Especialidad: "+((Medico) enfmed).getEspecialista());   
+            }else if((i == 1)&&(enfmed instanceof Enfermera)){
                 tframe.jTextArea1.append(System.getProperty("line.separator"));
                 tframe.jTextArea1.append(System.getProperty("line.separator"));
                 tframe.jTextArea1.append("Enfermera:"); 
@@ -440,11 +494,255 @@ public class ClinicaFrame extends javax.swing.JFrame {
                 tframe.jTextArea1.append("DPI: "+enfmed.getDpi());
                 tframe.jTextArea1.append(System.getProperty("line.separator")); 
                 tframe.jTextArea1.append("Salario: "+enfmed.getSalario()); 
+                tframe.jTextArea1.append(System.getProperty("line.separator")); 
+                tframe.jTextArea1.append("Años de Experiencia: "+((Enfermera)enfmed).getAnos());
+                tframe.jTextArea1.append(System.getProperty("line.separator")); 
+                tframe.jTextArea1.append("Intensivista: "+((Enfermera)enfmed).getIntensivista());
             }
         }
         tframe.setVisible(true);
     }//GEN-LAST:event_jButtonVerGuardiaActionPerformed
+/**
+ * este metodo de boton lo que hace es calcular a la enfermera SUPREMA
+ * @param evt 
+ */
+    private void jButtonEnfermeraGuardiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEnfermeraGuardiaActionPerformed
+        // TODO add your handling code here:
+        ArrayCasillas casilla = new ArrayCasillas();
+        Guardia enfmed = new Guardia();
+        Guardia t=null;
+        Enfermera e=null;
+        int e1=0,e2=0,e3=0,e4=0,e5=0;
+        for (int n = 0; n < matriz1.length; n++) {
+            for (int j = 0; j < matriz1[n].length; j++) {
+               casilla=matriz1[n][j];
+                for(int i = 0;i<casilla.getArrayCasilla().length;i++){
+                    t=casilla.getArrayCasilla()[1];
+                    if (t instanceof Enfermera) {
+                        if ((t.getNit().equals("563269-K"))&&(((Enfermera) t).getIntensivista()==true)) {
+                            e1++;
+                        }
+                        else if ((t.getNit().equals("7654376-6"))&&(((Enfermera) t).getIntensivista()==true)) {
+                            e2++;
+                        }
+                        else if ((t.getNit().equals("9876456-8"))&&(((Enfermera) t).getIntensivista()==true)) {
+                            e3++;
+                        }
+                        else if ((t.getNit().equals("4567865-8"))&&(((Enfermera) t).getIntensivista()==true)) {
+                            e4++;
+                        }
+                        else if ((t.getNit().equals("6789654-8"))&&(((Enfermera) t).getIntensivista()==true)) {
+                            e5++;
+                        }
+                    }
+                    
+                }
+            }
+        }
+        double mayor=0;
+        double extras=0;
+        Guardia ee=null;
+        if (e2>e4) {
+            mayor=(e2-48)*1.0;
+            extras=mayor*500.00;
+            ee=registro.buscarEnfermeraNIT("7654376-6");
+            System.out.println(""+e2);
+            JOptionPane.showMessageDialog(null, "El nombre de la enfermera suprema es: "+ee.getNombre()+" hizo un total de "+mayor+" horas de guardias extra y su pago extra por guardias es de: Q"+extras);
+        } else if (e2<e4) {
+            mayor=(e4-48)*1.0;
+            extras=mayor*500.00;
+            ee=registro.buscarEnfermeraNIT("4567865-8");
+            System.out.println(""+e4);
+            JOptionPane.showMessageDialog(null, "El nombre de la enfermera suprema es: "+ee.getNombre()+" hizo un total de "+mayor+" horas de guardias extra y su pago extra por guardias es de: Q"+extras);
+        }else if (e2==e4) {
+            mayor=(e2-48)*1.0;
+            extras=mayor*500.00;
+            ee=registro.buscarEnfermeraNIT("4567865-8");
+            System.out.println(""+e2);
+            JOptionPane.showMessageDialog(null, "Por alguna razon 2 enfermeras quedaron empatadas e hicieron un total de "+mayor+" horas extra, aun así ambas reciben un pago extra por guardias  de: Q"+extras);
+            
+        }
+        
+        
 
+    }//GEN-LAST:event_jButtonEnfermeraGuardiaActionPerformed
+
+    private void jButtonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalirActionPerformed
+        // TODO add your handling code here:
+        System.exit(0);
+    }//GEN-LAST:event_jButtonSalirActionPerformed
+
+    private void jButtonGuardiasTotalesExtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardiasTotalesExtrasActionPerformed
+        // TODO add your handling code here:
+         // TODO add your handling code here:
+        ArrayCasillas casilla = new ArrayCasillas();
+        Guardia enfmed = new Guardia();
+        Guardia t=null;
+        int e1=0,e2=0,e3=0,e4=0,e5=0;
+        int m1=0,m2=0,m3=0,m4=0,m5=0;
+        for (int n = 0; n < matriz1.length; n++) {
+            for (int j = 0; j < matriz1[n].length; j++) {
+               casilla=matriz1[n][j];
+                for(int i = 0;i<casilla.getArrayCasilla().length;i++){
+                    t=casilla.getArrayCasilla()[i];
+                    if (t instanceof Enfermera) {
+                        if ((t.getNit().equals("563269-K"))) {
+                            e1++;
+                        }
+                        else if ((t.getNit().equals("7654376-6"))) {
+                            e2++;
+                        }
+                        else if ((t.getNit().equals("9876456-8"))) {
+                            e3++;
+                        }
+                        else if ((t.getNit().equals("4567865-8"))) {
+                            e4++;
+                        }
+                        else if ((t.getNit().equals("6789654-8"))) {
+                            e5++;
+                        }
+                    } else if (t instanceof Medico) {
+                        if ((t.getNit().equals("6799652-3"))) {
+                            m1++;
+                        }
+                        else if ((t.getNit().equals("8964547-3"))) {
+                            m2++;
+                        }
+                        else if ((t.getNit().equals("8786456-6"))) {
+                            m3++;
+                        }
+                        else if ((t.getNit().equals("5684873-1"))) {
+                            m4++;
+                        }
+                        else if ((t.getNit().equals("8765485-7"))) {
+                            m5++;
+                        }
+                    }
+                    
+                }
+            }
+        }
+      double totale=1.0*(e1+e2+e3+e4+e5);
+      double totalm=1.0*(m1+m2+m3+m4+m5);
+      double extrase=(totale-240.0);
+      double extrasm=totalm-120.0;
+      double gtotale=extrase*500;
+      double gtotalm=extrasm*900;
+      double totals=gtotale+gtotalm;
+      JOptionPane.showMessageDialog(null, "El total de horas extras de Enfermeras es de "+extrase+", el total de horas extras de Médicos es de: "+extrasm+" y el pago a darse por horas extras es de: Q"+totals);
+      
+    }//GEN-LAST:event_jButtonGuardiasTotalesExtrasActionPerformed
+
+    private void jButtonBuscarParejasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarParejasActionPerformed
+        // TODO add your handling code here:
+        String a="",b="",aa="",bb="",nombree="",nombrem="";
+        try {
+            a=(String) jComboBoxNITEnfermera.getSelectedItem();// se selecciona el valor del item de el Combobox de enfermera
+            b=(String) jComboBoxNITMedico.getSelectedItem();
+            if ((a=="")||(b=="")) {
+                JOptionPane.showMessageDialog(null, "Para poder buscar debe seleccionar 2 NIT, no solamente uno. Falta un NIT.");
+            }
+            else{
+                ArrayCasillas casilla = new ArrayCasillas();
+                Guardia enfmed = new Guardia();
+                Guardia t=null;
+                int e1=0;
+                for (int n = 0; n < matriz1.length; n++) {
+                    for (int j = 0; j < matriz1[n].length; j++) {
+                       casilla=matriz1[n][j];
+                        for(int i = 0;i<casilla.getArrayCasilla().length;i++){
+                            t=casilla.getArrayCasilla()[i];
+                            if (t instanceof Enfermera) {
+                               aa=t.getNit();
+                               
+                            }else if (t instanceof Medico) {
+                               bb=t.getNit();
+                               
+                            }
+                        }
+                        if ((a.equals(aa))&&(b.equals(bb))) {
+                            e1++;
+                        }
+                    }
+                }
+                Guardia s=null;
+                Guardia d=null;
+                s=registro.buscarEnfermeraNIT(a);
+                d=registro.buscarMedicoNIT(b);
+                JOptionPane.showMessageDialog(null, "La cantidad de veces que la enfermera "+s.getNombre()+" con numero de NIT:"+a+" y el médico "+d.getNombre()+" con numero de NIT:"+b+" estuvieron juntos de guardia es de: "+e1);
+            } 
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Seleccione un NIT de Enfermera y un Nit de Medico Valido");
+        }
+    }//GEN-LAST:event_jButtonBuscarParejasActionPerformed
+
+    private void jButtonSustituirEnfemeraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSustituirEnfemeraActionPerformed
+        // TODO add your handling code here:
+        String nitenfnueva = cboxsustituir.getSelectedItem().toString();
+        if(nitenfnueva.length()==0){
+            JOptionPane.showMessageDialog(null, "Seleccione el NIT de almenos una enfermera.");
+        }else{            
+            int columnas = getTablaColumns();
+            int filas = getTablaFilas();
+            ArrayCasillas casilla = new ArrayCasillas();
+            casilla = matriz1[columnas][filas];
+            Guardia enfvieja = new Guardia();
+            Guardia enfnueva = new Guardia();
+            enfnueva = registro.buscarEnfermeraNIT(nitenfnueva);
+
+            for(int i = 0;i<casilla.getArrayCasilla().length;i++){
+                if(i == 1){
+                    enfvieja = casilla.EnfermeraCasilla(i);
+                    if(((Enfermera)enfvieja).getIntensivista()==true && ((Enfermera)enfnueva).getIntensivista()==true){
+                        JOptionPane.showMessageDialog(null, "La enfermera: "+enfvieja.getNombre()+"(Intensivista) con NIT: "+enfvieja.getNit()+"\n"
+                                + "fue sustituida por: "+enfnueva.getNombre()+"  (Intensivista) con NIT: "+enfnueva.getNit());
+                        enfvieja = enfnueva;
+                    }else if(((Enfermera)enfvieja).getIntensivista()==false && ((Enfermera)enfnueva).getIntensivista()==false){
+                        JOptionPane.showMessageDialog(null, "La enfermera: "+enfvieja.getNombre()+"(No intensivista) con NIT: "+enfvieja.getNit()+"\n"
+                                + "fue sustituida por: "+enfnueva.getNombre()+" (No intensivista) con NIT: "+enfnueva.getNit());
+                        enfvieja = enfnueva;
+                    }else{
+                        JOptionPane.showMessageDialog(null, "Debe de sustituir una enfermera intensivista por otra intensivista o viceversa.\n"
+                            + "Intente de nuevo.", "", JOptionPane.INFORMATION_MESSAGE);
+                    }
+                }
+            }
+        }
+    }//GEN-LAST:event_jButtonSustituirEnfemeraActionPerformed
+
+    private void jButtonINFOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonINFOActionPerformed
+        // TODO add your handling code here:
+        JOptionPane.showMessageDialog(null, "** Oprima el boton 'Informacion guardia' para visualizar\n"
+                + "los datos de la enfermera que va a sustituir.");
+    }//GEN-LAST:event_jButtonINFOActionPerformed
+
+    private void cboxsustituirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboxsustituirActionPerformed
+        // TODO add your handling code here:
+        String nitenfnueva = cboxsustituir.getSelectedItem().toString();
+        try{
+            int columnas = getTablaColumns();
+            int filas = getTablaFilas();
+            ArrayCasillas casilla = new ArrayCasillas();
+            casilla = matriz1[columnas][filas];
+            //Guardia enfvieja = new Guardia();
+            Guardia enfnueva = new Guardia();
+            enfnueva = registro.buscarEnfermeraNIT(nitenfnueva);
+
+            for(int i = 0;i<casilla.getArrayCasilla().length;i++){
+                if(i == 1){
+                    //enfvieja = casilla.EnfermeraCasilla(i);
+                    if(((Enfermera)enfnueva).getIntensivista()==true){
+                        labelseleccion.setText("Intensivista");
+                    }else if(((Enfermera)enfnueva).getIntensivista()==false){
+                        labelseleccion.setText("No intensivista");                        
+                    }
+                }
+            }
+        }catch(Exception e){
+        
+        }
+    }//GEN-LAST:event_cboxsustituirActionPerformed
+    
     /**
      * @param args the command line arguments
      */
@@ -482,15 +780,16 @@ public class ClinicaFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JComboBox<String> cboxsustituir;
     private javax.swing.JButton jButtonBuscarParejas;
     private javax.swing.JButton jButtonEnfermeraGuardia;
+    private javax.swing.JButton jButtonGuardiasTotalesExtras;
+    private javax.swing.JButton jButtonINFO;
     private javax.swing.JButton jButtonSalir;
     private javax.swing.JButton jButtonSustituirEnfemera;
     private javax.swing.JButton jButtonVerGuardia;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
-    private javax.swing.JComboBox<String> jComboBox3;
+    private javax.swing.JComboBox<String> jComboBoxNITEnfermera;
+    private javax.swing.JComboBox<String> jComboBoxNITMedico;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -506,5 +805,6 @@ public class ClinicaFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
+    private javax.swing.JLabel labelseleccion;
     // End of variables declaration//GEN-END:variables
 }
