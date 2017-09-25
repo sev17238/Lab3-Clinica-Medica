@@ -106,7 +106,7 @@
                       <Data value="29"/>
                       <Data value="30"/>
                     </Column>
-                    <Column editable="true" title="Enero" type="java.lang.Object">
+                    <Column editable="false" title="Enero" type="java.lang.Object">
                       <Data value="Guardia"/>
                       <Data value="Guardia"/>
                       <Data value="Guardia"/>

@@ -1,14 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
 /**
+ * Clase que crea objetos con atributos especiales de Enfermera.
 * @autor Alejandro Tejada 17584
 * @autor Diego Sevilla 17238
+* @since 24/09/17
 */
-
 public class Enfermera extends Guardia{
 	private int anos;
 	private boolean intensivista;

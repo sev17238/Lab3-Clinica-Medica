@@ -8,16 +8,12 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
- *
- * @author Jose Alejandro
- */
+ * Clase que crea el frame con los diferentes componentes con los que interactua el usuario.
+* @autor Alejandro Tejada 17584
+* @autor Diego Sevilla 17238
+* @since 24/09/17
+*/
 public class ClinicaFrame extends javax.swing.JFrame {
     Registro registro;
     ArrayCasillas[][] matriz1;
@@ -37,7 +33,9 @@ public class ClinicaFrame extends javax.swing.JFrame {
         llenarComboBoxes();
         llenarCasillasArray();
     } 
-    
+    /**
+     * Metodo que inicializa los datos del registro de la clinica.
+     */
     public void datosIniciales(){
         registro.agregarMedico("Juan Perez", "6799652-3", 123456787, 15000, 89098,true);
         registro.agregarEnfermera("Juana Lopez", "563269-K",56432134,6000,2,false);
@@ -57,8 +55,8 @@ public class ClinicaFrame extends javax.swing.JFrame {
         String [] a;
         String [] b;
         String [] c;
-        a=registro.ListarDPIEnfermeras();
-        b=registro.ListarDPIMedicos();
+        a=registro.ListarDPIEnfermerasE();
+        b=registro.ListarDPIMedicosE();
         c=registro.ListarDPIEnfermerasTodas();
         for (int i = 0; i < a.length; i++) {
             jComboBoxNITEnfermera.addItem(a[i]);
@@ -70,25 +68,24 @@ public class ClinicaFrame extends javax.swing.JFrame {
             cboxsustituir.addItem(c[i]);            
         }
     }
-    
-    public void getPosiciones(){
-        int x=0,y=0;
-        x=jTable1.getSelectedRow();
-        y=jTable1.getSelectedColumn()-1;
-        System.out.println("Filas: "+x+" , Columna:"+y);
-    }
+    /**
+     * Metodo que devuelve la columna en la que se esta posicionado.
+     * @return el numero de columna
+     */
     public int getTablaColumns(){
         int y=0;
         y=jTable1.getSelectedColumn()-1;
         return y;
     }
-    
+    /**
+     * Metodo que devuelve la fila en la que se esta posicionado.
+     * @return el numero de fila
+     */
     public int getTablaFilas(){
         int x=0;
         x=jTable1.getSelectedRow();
         return x;
-    }
-    
+    }    
     /**
      * Metodo que mete un objeto de tipo ArrayCasillas que representa un array de tipo guardia en cada una
      * de las casillas de la matriz1, que en cada casilla puede contener a un medico y a una enfermera.
@@ -97,15 +94,11 @@ public class ClinicaFrame extends javax.swing.JFrame {
         for (int i = 0; i < matriz1.length; i++) {
             for (int j = 0; j < matriz1[i].length; j++) {
                 ArrayCasillas array = new ArrayCasillas();
-                //array = matriz1[j][i]; //Comienza en la columna enero y recorre todas las filas (dia) de esa 
-                                        //columna antes de pasar a la otra columna.
                 Guardia enfmed = new Guardia();
                 for(int e = 0; e<array.getArrayCasilla().length;e++){
-                    //enfmed = array.getArrayCasilla()[e];
                     if (e == 0){
                         enfmed = registro.buscarMedicoR();
                         array.getArrayCasilla()[e] = enfmed;
-                        
                     }else{
                         enfmed = registro.buscarEnfermeraR();
                         array.getArrayCasilla()[e] = enfmed;
@@ -115,7 +108,6 @@ public class ClinicaFrame extends javax.swing.JFrame {
             }
         }       
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -200,7 +192,7 @@ public class ClinicaFrame extends javax.swing.JFrame {
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, true, false, false, false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -451,7 +443,11 @@ public class ClinicaFrame extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    /**
+     * Metodo de boton que muestra el medico y la enfermera que se encuentran en una casilla de la tabla 
+     * de la interfaz grafica atraves de un panel con textarea.
+     * @param evt 
+     */
     private void jButtonVerGuardiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVerGuardiaActionPerformed
         // TODO add your handling code here:
         int columnas = getTablaColumns();int meses = columnas+1;
@@ -559,19 +555,19 @@ public class ClinicaFrame extends javax.swing.JFrame {
             extras=mayor*500.00;
             ee=registro.buscarEnfermeraNIT("4567865-8");
             System.out.println(""+e2);
-            JOptionPane.showMessageDialog(null, "Por alguna razon 2 enfermeras quedaron empatadas e hicieron un total de "+mayor+" horas extra, aun así ambas reciben un pago extra por guardias  de: Q"+extras);
-            
+            JOptionPane.showMessageDialog(null, "Por alguna razon 2 enfermeras quedaron empatadas e hicieron un total de "+mayor+" horas extra, aun así ambas reciben un pago extra por guardias  de: Q"+extras);   
         }
-        
-        
-
     }//GEN-LAST:event_jButtonEnfermeraGuardiaActionPerformed
 
     private void jButtonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalirActionPerformed
         // TODO add your handling code here:
         System.exit(0);
     }//GEN-LAST:event_jButtonSalirActionPerformed
-
+    /**
+     * Metodo de boton que calcula el dinero total que la clinica debera de pagar a los doctores y enfermeras
+     * por guardias extras.
+     * @param evt 
+     */
     private void jButtonGuardiasTotalesExtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardiasTotalesExtrasActionPerformed
         // TODO add your handling code here:
          // TODO add your handling code here:
@@ -630,9 +626,12 @@ public class ClinicaFrame extends javax.swing.JFrame {
       double gtotalm=extrasm*900;
       double totals=gtotale+gtotalm;
       JOptionPane.showMessageDialog(null, "El total de horas extras de Enfermeras es de "+extrase+", el total de horas extras de Médicos es de: "+extrasm+" y el pago a darse por horas extras es de: Q"+totals);
-      
     }//GEN-LAST:event_jButtonGuardiasTotalesExtrasActionPerformed
-
+    /**
+     * Metodo de boton que cuenta las veces que un doctor especialista ha hecho guardia con una enfermera intensivista,
+     * y lo hace para cada doctor especialista y enfermera especialista de la clinica.
+     * @param evt 
+     */
     private void jButtonBuscarParejasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarParejasActionPerformed
         // TODO add your handling code here:
         String a="",b="",aa="",bb="",nombree="",nombrem="";
@@ -675,7 +674,11 @@ public class ClinicaFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Seleccione un NIT de Enfermera y un Nit de Medico Valido");
         }
     }//GEN-LAST:event_jButtonBuscarParejasActionPerformed
-
+    /**
+     * Metodo de boton que sustituye una enfermera por otra diferente, solo si ambas son intensivistas o no 
+     * intensivistas.
+     * @param evt 
+     */
     private void jButtonSustituirEnfemeraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSustituirEnfemeraActionPerformed
         // TODO add your handling code here:
         String nitenfnueva = cboxsustituir.getSelectedItem().toString();
@@ -696,11 +699,13 @@ public class ClinicaFrame extends javax.swing.JFrame {
                     if(((Enfermera)enfvieja).getIntensivista()==true && ((Enfermera)enfnueva).getIntensivista()==true){
                         JOptionPane.showMessageDialog(null, "La enfermera: "+enfvieja.getNombre()+"(Intensivista) con NIT: "+enfvieja.getNit()+"\n"
                                 + "fue sustituida por: "+enfnueva.getNombre()+"  (Intensivista) con NIT: "+enfnueva.getNit());
-                        enfvieja = enfnueva;
+                        //enfvieja = enfnueva;
+                        casilla.getArrayCasilla()[i] = enfnueva;
                     }else if(((Enfermera)enfvieja).getIntensivista()==false && ((Enfermera)enfnueva).getIntensivista()==false){
                         JOptionPane.showMessageDialog(null, "La enfermera: "+enfvieja.getNombre()+"(No intensivista) con NIT: "+enfvieja.getNit()+"\n"
                                 + "fue sustituida por: "+enfnueva.getNombre()+" (No intensivista) con NIT: "+enfnueva.getNit());
-                        enfvieja = enfnueva;
+                        //enfvieja = enfnueva;
+                        casilla.getArrayCasilla()[i] = enfnueva;
                     }else{
                         JOptionPane.showMessageDialog(null, "Debe de sustituir una enfermera intensivista por otra intensivista o viceversa.\n"
                             + "Intente de nuevo.", "", JOptionPane.INFORMATION_MESSAGE);
@@ -709,13 +714,21 @@ public class ClinicaFrame extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_jButtonSustituirEnfemeraActionPerformed
-
+    /**
+     * Metodo de boton que crea un mensaje de dialogo para dar aviso al usuario que debe de realizar una
+     * accion importante.
+     * @param evt 
+     */
     private void jButtonINFOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonINFOActionPerformed
         // TODO add your handling code here:
         JOptionPane.showMessageDialog(null, "** Oprima el boton 'Informacion guardia' para visualizar\n"
                 + "los datos de la enfermera que va a sustituir.");
     }//GEN-LAST:event_jButtonINFOActionPerformed
-
+    /**
+     * Metodo de boton que cabia el texto de un label para mostrar si la enfermera del nit que se esta
+     * seleccionando es intensivista o no.
+     * @param evt 
+     */
     private void cboxsustituirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboxsustituirActionPerformed
         // TODO add your handling code here:
         String nitenfnueva = cboxsustituir.getSelectedItem().toString();

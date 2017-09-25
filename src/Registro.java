@@ -1,19 +1,18 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
 import java.util.ArrayList;
 import java.util.Random;
-
+/**
+ * Clase que representa el registro que se tiene de guardias hechas por medicos y enfermeras de la 
+ * clinica.
+* @autor Alejandro Tejada 17584
+* @autor Diego Sevilla 17238
+* @since 24/09/17
+*/
 public class Registro{	
 	private ArrayList<Guardia> medicosenfermeras;
-
 	public Registro(){
 		medicosenfermeras = new ArrayList<Guardia>();
 	}
-
 	public ArrayList<Guardia> getMedicoEnfermera(){
 		return medicosenfermeras;
 	}
@@ -48,40 +47,6 @@ public class Registro{
             medicosenfermeras.add(enf);
         }
         /**
-         * Metodo que busca un medico en la lista de enfermeras y medicos, para retornar el objeto si se
-         * encuentra en la lista, de lo contraria se retorna null.
-         * @param dpi el dpi del medico que se quiere buscar
-         * @return objeto de tipo Guardia con instanciado Medico
-         */
-	public Guardia buscarMedico(int dpi){
-                Guardia med = new Guardia();
-		for (int i = 0;i<medicosenfermeras.size();i++) {
-                    med = medicosenfermeras.get(i);
-                    if((dpi == med.getDpi())&&(med instanceof Medico)){
-			return med; 
-                    }
-		}
-            return med;                
-	}
-        /**
-         * Metodo que busca un medico en la lista de enfermeras y medicos, para retornar un boolean si el objeto
-         * buscado esta o no en la lista.
-         * @param dpi el dpi del medico que se quiere buscar
-         * @return 
-         */
-        public boolean buscarMedico2(int dpi){
-                Guardia med = new Guardia();
-                boolean esta = false;
-		for (int i = 0;i<medicosenfermeras.size();i++) {
-                    med = medicosenfermeras.get(i);
-                    if((dpi == med.getDpi())&&(med instanceof Medico)){
-			esta = true;
-                        return esta;
-        	    }
-		}
-                return esta;
-	}
-        /**
          * Metodo que crea una lista temporal solo con los medicos de la lista de guardias para luego
          * retornar aleatoriamente uno de esos medicos en dicha lista temporal.
          * @return un medico
@@ -99,22 +64,6 @@ public class Registro{
             int aleatorio = (int)(ran.nextInt(temp.size())); //sera un numero aleatorio de una unidad menor al largo de la lista.
             med = temp.get(aleatorio);  
             return med;                
-	}
-        /**
-         * Metodo que busca una enfermera en la lista de enfermeras y medicos, para retornar el objeto si se
-         * encuentra en la lista, de lo contraria se retorna null.
-         * @param dpi el dpi de la enfermera
-         * @return objeto de tipo Guardia con instanciado Enfermera
-         */
-	public Guardia buscarEnfermera(int dpi){
-                Guardia enf = new Guardia();
-		for (int i = 0;i<medicosenfermeras.size();i++) {
-                    enf = medicosenfermeras.get(i);
-                    if((dpi == enf.getDpi())&&(enf instanceof Enfermera)){
-			return enf; 
-                    }
-		}
-            return enf;                
 	}
         /**
          * ESte metodo retorna una enfermera por nit
@@ -147,24 +96,6 @@ public class Registro{
             return enf;                
 	}
         /**
-         * Metodo que busca una enfermera en la lista de enfermeras y medicos, para retornar un boolean si el objeto
-         * buscado esta o no en la lista.
-         * @param dpi el dpi del medico que se quiere buscar
-         * @return 
-         */
-        public boolean buscarEnfermera2(int dpi){
-                Guardia enf = new Guardia();
-                boolean esta = false;
-		for (int i = 0;i<medicosenfermeras.size();i++) {
-                    enf = medicosenfermeras.get(i);
-                    if((dpi == enf.getDpi())&&(enf instanceof Enfermera)){
-			esta = true;
-                        return esta;
-        	    }
-		}
-                return esta;
-	}
-        /**
          * Metodo que crea una lista temporal solo con las enfermeras de la lista de guardias para luego
          * retornar aleatoriamente una de esas enfermeras en dicha lista temporal.
          * @return una enfermera
@@ -187,7 +118,7 @@ public class Registro{
          * ESte metodo crea una lista de DPI de enfemeras intensivistas
          * @return DPIEnfemeras es un vector de String que tiene los DPI de las enfemeras
          */
-        public String[] ListarDPIEnfermeras(){
+        public String[] ListarDPIEnfermerasE(){
             int cantidad=0;
             Guardia s;
             for (int i = 0; i < medicosenfermeras.size(); i++) {
@@ -205,13 +136,11 @@ public class Registro{
                     DPIEnfermeras[m]=t.getNit();
                     m++;
                 }
-            }
-            
+            }            
             return DPIEnfermeras;
         }
         /**
-         * ESte metodo crea una lista des los DPI de todas las enfermeras de la clinica, sean intensivistas
-         * o no.
+         * ESte metodo crea una lista des los DPI de todas las enfermeras de la clinica, sean intensivistas o no.
          * @return DPIEnfemeras es un vector de String que tiene los DPI de las enfemeras
          */
         public String[] ListarDPIEnfermerasTodas(){
@@ -234,13 +163,12 @@ public class Registro{
                 }
             }            
             return DPIEnfermeras;
-        }
-        
+        }        
         /**
          * ESte metodo crea una lista de DPI de medicos especialistas
          * @return DPIEnfemeras es un vector de String que tiene los DPI de los medicos
          */
-        public String[] ListarDPIMedicos(){
+        public String[] ListarDPIMedicosE(){
             int cantidad=0;
             Guardia s;
             for (int i = 0; i < medicosenfermeras.size(); i++) {
@@ -248,8 +176,7 @@ public class Registro{
                 if ((s instanceof Medico)&&((Medico)s).getEspecialista()==true) {
                     cantidad++;
                 }
-            }
-            
+            }            
             String[] DPIMedicos= new String[cantidad];
             Guardia t;
             int m=0;
@@ -259,8 +186,7 @@ public class Registro{
                     DPIMedicos[m]=t.getNit();
                     m++;
                 }
-            }
-            
+            }            
             return DPIMedicos;
         }
         /**
@@ -277,8 +203,5 @@ public class Registro{
                     }
 		}
             return false;
-        }
-  
-    
-
+        }  
 }
