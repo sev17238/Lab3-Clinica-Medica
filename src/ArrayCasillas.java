@@ -26,6 +26,10 @@ public class ArrayCasillas {
 	}
         return enf;                
     }
+    /**
+     * Retorna la lista de 2 posiciones del objeto arrayCasillas
+     * @return array de 2 posiciones
+     */
     public Guardia[] getArrayCasilla(){
         return array;
     }

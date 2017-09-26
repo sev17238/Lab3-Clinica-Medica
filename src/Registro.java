@@ -4,10 +4,10 @@ import java.util.Random;
 /**
  * Clase que representa el registro que se tiene de guardias hechas por medicos y enfermeras de la 
  * clinica.
-* @autor Alejandro Tejada 17584
-* @autor Diego Sevilla 17238
-* @since 24/09/17
-*/
+ * @autor Alejandro Tejada 17584
+ * @autor Diego Sevilla 17238
+ * @since 24/09/17
+ */
 public class Registro{	
 	private ArrayList<Guardia> medicosenfermeras;
 	public Registro(){

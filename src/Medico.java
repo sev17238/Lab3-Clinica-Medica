@@ -8,7 +8,15 @@
 public class Medico extends Guardia{
 	private int colegiado;
 	private boolean especialista;
-
+        /**
+         * Metodo que crea un nuevo objeto de tipo medico.
+         * @param nombre del medico
+         * @param nit del medico
+         * @param dpi del medico
+         * @param salario del medico 
+         * @param colegiado del medico
+         * @param especialista true o false si el medico es especialista o no.
+         */
 	public void setMedico(String nombre, String nit, int dpi,double salario, int colegiado, boolean especialista){
 		super.setGuardia(nombre,nit,dpi,salario);
 		this.colegiado = colegiado;

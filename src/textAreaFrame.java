@@ -1,10 +1,10 @@
 
 /**
+ * Esta clase crea un Jframe que puede desplegar informacion en un TextArea.
 * @autor Alejandro Tejada 17584
 * @autor Diego Sevilla 17238
 * @since 24/09/17
 */
-
 public class textAreaFrame extends javax.swing.JFrame {
 
     /**

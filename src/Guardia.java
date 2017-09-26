@@ -11,6 +11,13 @@ public class Guardia{
 	private String nit;
 	private int dpi;
         private double salario;
+        /**
+         * Metodo que crea un nuevo objeto de tipo Guardia
+         * @param nombre de la guardia sea medico o enfermera
+         * @param nit de la guardia sea medico o enfermera
+         * @param dpi de la guardia sea medico o enfermera
+         * @param salario de la guardia sea medico o enfermera
+         */
 	public void setGuardia(String nombre,String nit, int dpi, double salario){
 		this.nombre = nombre;
 		this.nit = nit;

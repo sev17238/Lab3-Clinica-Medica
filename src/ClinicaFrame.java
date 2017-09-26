@@ -7,7 +7,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-
 /**
  * Clase que crea el frame con los diferentes componentes con los que interactua el usuario.
 * @autor Alejandro Tejada 17584
@@ -15,14 +14,14 @@ import javax.swing.table.DefaultTableModel;
 * @since 24/09/17
 */
 public class ClinicaFrame extends javax.swing.JFrame {
-    Registro registro;
-    ArrayCasillas[][] matriz1;
-    Guardia[] array;
-    int i;
+    private Registro registro;
+    private ArrayCasillas[][] matriz1;
+    private Guardia[] array;
+    
     /**
      * Creates new form ClinicaFrame
      */
-    public ClinicaFrame() {
+    public ClinicaFrame(){
         initComponents();        
         this.setLocationRelativeTo(null);
         
